@@ -13,9 +13,19 @@ public class BaseClass {
 	
 	@BeforeMethod
 	public void setup() {
-		WebDriverManager.chromedriver().setup();
-		driver=new ChromeDriver();
-		driver.manage().window().maximize();		
+		System.out.println("Browser setup starting");
+		if(System.getProperty("browser").equalsIgnoreCase("Chrome")) {
+			WebDriverManager.chromedriver().setup();
+			driver=new ChromeDriver();
+		}else if(System.getProperty("browser").equalsIgnoreCase("Firefox")) {
+			WebDriverManager.firefoxdriver().setup();
+			driver=new ChromeDriver();
+		}else if(System.getProperty("browser").equalsIgnoreCase("Edge")) {
+			WebDriverManager.edgedriver().setup();
+			driver=new ChromeDriver();
+		}
+		driver.manage().window().maximize();
+		driver.get(System.getProperty("url"));
 		driver.get("https://www.google.com/");
 	}
 	
